@@ -21,3 +21,16 @@ func GetSession() *mgo.Session {
     }
   }
 }
+
+func createDbSession() {
+  var err error
+
+  session, err = mgo.DialWithInfo(&mgo.DialInfo{
+    Username: AppConfig.DBUser,
+    Password: AppConfig.DBPwd,
+    Timeout:  60 * time.Second,
+  })
+  if err != nil {
+    log.Fatalf("[GetSession]: %s\n", err)
+  }
+}
